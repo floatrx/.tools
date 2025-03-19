@@ -1,4 +1,4 @@
-# SCG Tools
+# Tools
 
 ### Prerequisites
 Update global `~/.gitignore` to exclude the tools folder from the project.
@@ -12,7 +12,7 @@ Add:
 Install dependencies (once) before using the tools.
 
 ```bash
-cd .#tools # from the root folder
+cd .tools # from the root folder
 pnpm i
 ```
 
