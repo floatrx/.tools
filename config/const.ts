@@ -9,6 +9,7 @@ export const CMD_PATH: Record<Tools, `${string}/${string}`> = {
 // Resolved paths for tools
 export const resolvedPath = {
   root: findRootDir(),
+  commitMessageFile: getRootSrcPath('..', '.git', 'COMMIT_MESSAGE.txt'),
   modules: {
     components: getRootSrcPath('shared-components'),
     front: getRootSrcPath('shared-front'),

@@ -10,17 +10,17 @@ export const handleCheckout = async () => {
 
   if (actions.includes('doResetModulesToDev')) {
     await submodulesForEach('git reset --hard');
-    log.info('All submodules already in development.');
+    log.info('Submodules reset to development.');
   }
 
   if (actions.includes('doCheckoutModulesToDev')) {
     await submodulesForEach('git checkout development');
-    log.info('All submodules already in development.');
+    log.info('Submodules checked out to development.');
   }
 
   if (actions.includes('doCheckoutRootToDev')) {
     await run('git checkout development', resolvedPath.root, true);
-    log.info('Checked out root repo to development.');
+    log.info('Root repo also checked out to development.');
   }
 
   if (actions.includes('doBuildTypes')) {

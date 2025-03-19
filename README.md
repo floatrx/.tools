@@ -1,5 +1,12 @@
 # SCG Tools
 
+### Prerequisites
+Update global `~/.gitignore` to exclude the tools folder from the project.
+Add: 
+```
+.tools
+```
+
 ### Init
 
 Install dependencies (once) before using the tools.
