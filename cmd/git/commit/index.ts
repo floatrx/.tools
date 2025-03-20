@@ -1,22 +1,27 @@
-import { run } from '@/process';
-import { log } from '@/lib/logger';
-import { resolvedPath } from '@/config/const';
-import { promptCommitDetails } from './promptCommitDetails';
-import { createCommitMessage } from './createCommitMessage';
+import { handleCommit } from '@/cmd/git/commit/handleCommit.ts';
+import { resolvedPath } from '@/config/const.ts';
 import chalk from 'chalk';
+import fs from 'fs';
 
-export const handleCommit = async () => {
-  const { jiraIssue, commitMessage, selectedFiles } = await promptCommitDetails();
+export const parseIssueAndMessage = () => {
+  const msgFile = resolvedPath.commitMessageFile;
+  let jiraIssue = '000';
+  let commitMessage = 'add new feature';
 
-  if (selectedFiles.length > 0) {
-    const gitAddCommand = `git add -A ${selectedFiles.join(' ')}`;
-    log.wait(`\nRun the following command to stage the selected files:\n${chalk.green(gitAddCommand)}\n`);
-    await run(gitAddCommand, resolvedPath.root);
-    await run('git status', resolvedPath.root);
-    await createCommitMessage(jiraIssue, commitMessage, resolvedPath.root);
-  } else {
-    log.info('No files selected.');
+  try {
+    const commitMessageContent = fs.readFileSync(msgFile, 'utf-8');
+    console.log('Commit message content:', commitMessageContent);
+    const match = commitMessageContent.match(/CRM-(\d+):\s*(.*)/);
+    if (match) {
+      jiraIssue = match[1];
+      commitMessage = match[2];
+    }
+    console.log('Prev:', chalk.yellow(`CRM-${jiraIssue}`), chalk.blue(commitMessage));
+  } catch (error) {
+    console.error('Error reading commit message file:', error);
   }
+
+  return { jiraIssue, commitMessage };
 };
 
 handleCommit();

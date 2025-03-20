@@ -1,0 +1,8 @@
+.venv
+.idea
+.vscode
+.noindex
+*.tsbuildinfo
+node_modules
+# Tickets
+cmd/ticket/*.json

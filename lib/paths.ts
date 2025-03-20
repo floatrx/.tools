@@ -1,7 +1,8 @@
+import type { Commands, GitCommands, TaskCommands, Tools } from '@/types';
+
+import { CMD_PATH } from '@/config/const';
 import fs from 'fs-extra';
 import path from 'node:path';
-import type { Tools } from '@/types';
-import { CMD_PATH } from '@/config/const';
 
 /**
  * Find root directory with next.config.js
@@ -36,12 +37,16 @@ export function getRootSrcPath(...str: string[]) {
   return path.join(findRootDir(), 'src', ...str);
 }
 
+// Git commands
+export function getCmdByTool(tool: 'git', cmd: GitCommands): string;
+// Task commands
+export function getCmdByTool(tool: 'task', cmd: TaskCommands): string;
 /**
  * Get command index by tool
  * @param tool
  * @param cmd
  * @returns command index (for prompt) e.g. `tsx cmd/git/index.ts`
  */
-export function getCmdByTool(tool: Tools, cmd: `/${string}` | '' = '') {
-  return `tsx ${CMD_PATH[tool]}${cmd}/index.ts`;
+export function getCmdByTool(tool: Tools, cmd: Commands): string {
+  return `tsx ${CMD_PATH[tool]}/${cmd}/index.ts`.replaceAll('//', '/');
 }

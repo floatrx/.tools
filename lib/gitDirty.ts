@@ -1,5 +1,6 @@
-import { $ } from '@/process';
-import { resolvedPath } from '@/config/const';
+import { resolvedPath } from '@/config/const.ts';
+import { $ } from '@/process.ts';
+import chalk from 'chalk';
 
 const excludeShared = (output: string) => output.split('\n').filter((file) => file && !file.startsWith('src/shared-'));
 
@@ -19,4 +20,15 @@ export const getChangedFiles = async () => {
     value: file,
     checked: stagedFiles.includes(file),
   }));
+};
+
+export const findDirtyFiles = async () => {
+  const files = await getChangedFiles();
+  const fileList = files.map(({ name }) => chalk.green(`  ${name}`)).join('\n');
+
+  console.log(chalk.blue(`✏️ Changed files (${files.length}): `), fileList, '\n');
+
+  if (!files.length) console.log('No changed files to select.');
+
+  return files;
 };

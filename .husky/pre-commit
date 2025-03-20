@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+
+tsc -b
+eslint $STAGED_FILES --fix
+prettier $STAGED_FILES --write --ignore-unknown
+
+git update-index --again

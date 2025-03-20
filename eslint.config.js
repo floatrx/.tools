@@ -1,9 +1,9 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import tsEslint from 'typescript-eslint';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+const js = require('@eslint/js');
+const globals = require('globals');
+const tsEslint = require('typescript-eslint');
+const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
-export default tsEslint.config(
+module.exports = tsEslint.config(
   { ignores: [] },
   {
     extends: [js.configs.recommended, ...tsEslint.configs.recommended],
@@ -28,15 +28,9 @@ export default tsEslint.config(
            * group, sorting that group like non-type imports are grouped.
            * @see https://github.com/lydell/eslint-plugin-simple-import-sort/blob/main/examples/.eslintrc.js
            */
-          groups: [
-            ['^node:.*\\u0000$', '^@?\\w.*\\u0000$', '^[^.].*\\u0000$', '^\\..*\\u0000$'],
-            ['^\\u0000'],
-            ['^'], // side effect imports
-            ['^\\.'], // sibling
-          ],
+          groups: [['^node:.*\\u0000$', '^@?\\w.*\\u0000$', '^[^.].*\\u0000$', '^\\..*\\u0000$'], ['^\\u0000'], ['^'], ['^\\.']],
         },
       ],
-
       /**
        * Disallow unused variables and arguments
        * except for those that start with an underscore...
@@ -50,7 +44,6 @@ export default tsEslint.config(
           caughtErrorsIgnorePattern: '^_|^e',
           destructuredArrayIgnorePattern: '^_',
           varsIgnorePattern: '^_',
-          // ignoreRestSiblings: true,
         },
       ],
       '@typescript-eslint/no-explicit-any': 'off',
