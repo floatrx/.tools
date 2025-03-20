@@ -1,6 +1,6 @@
 import { handleCommit } from '@/cmd/git/commit/handleCommit';
 import { findDirtyFiles } from '@/lib/gitDirty';
-import { getTicketIssues } from '@/lib/tickets.ts';
+import { getTicketIssues } from '@/lib/tickets';
 import inquirer from 'inquirer';
 
 export const promptGitCommit = async () => {

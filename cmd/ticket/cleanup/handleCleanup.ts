@@ -1,8 +1,8 @@
-import type { JiraIssueNumber } from '@/types/types.ts';
+import type { JiraIssueNumber } from '@/types/types';
 
-import { promptTicketCleanup } from '@/cmd/ticket/cleanup/index.ts';
-import { log } from '@/lib/logger.ts';
-import { readConfig, syncConfig } from '@/lib/tickets.ts';
+import { promptTicketCleanup } from '@/cmd/ticket/cleanup/index';
+import { log } from '@/lib/logger';
+import { readConfig, syncConfig } from '@/lib/tickets';
 
 export const handleCleanup = async () => {
   const { jiraIssues } = await promptTicketCleanup();

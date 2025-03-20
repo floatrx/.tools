@@ -1,5 +1,5 @@
-import { handleCleanup } from '@/cmd/ticket/cleanup/handleCleanup.ts';
-import { getTicketIssues } from '@/lib/tickets.ts';
+import { handleCleanup } from '@/cmd/ticket/cleanup/handleCleanup';
+import { getTicketIssues } from '@/lib/tickets';
 import inquirer from 'inquirer';
 
 export const promptTicketCleanup = async () => {

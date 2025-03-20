@@ -1,8 +1,10 @@
+import type { TicketType } from '@/types/types';
+
 import '@/config/const';
 
-import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl.ts';
+import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl';
 import { handleTicketCreate } from '@/cmd/ticket/create/handleTicketCreate';
-import { TASK_TYPES, type TicketType } from '@/config/const.ts';
+import { TASK_TYPES } from '@/config/const';
 import inquirer from 'inquirer';
 
 export const promptTicketCreate = async () => {

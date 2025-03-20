@@ -1,7 +1,7 @@
 import { CMD_PATH } from '@/config/const';
 import inquirer from 'inquirer';
 
-import { promptCommands } from './process.ts';
+import { promptCommands } from './process';
 
 console.clear();
 

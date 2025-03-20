@@ -1,12 +1,12 @@
-import type { Ticket } from '@/types/types.ts';
+import type { Ticket } from '@/types/types';
 
-import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl.ts';
-import { promptTicketCreate } from '@/cmd/ticket/create/index.ts';
-import { resolvedPath } from '@/config/const.ts';
-import { log } from '@/lib/logger.ts';
-import { parseJiraIssueNumber } from '@/lib/strings.ts';
-import { readConfig, syncConfig } from '@/lib/tickets.ts';
-import { $run } from '@/process.ts';
+import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl';
+import { promptTicketCreate } from '@/cmd/ticket/create/index';
+import { resolvedPath } from '@/config/const';
+import { log } from '@/lib/logger';
+import { parseJiraIssueNumber } from '@/lib/strings';
+import { readConfig, syncConfig } from '@/lib/tickets';
+import { $run } from '@/process';
 
 export const handleTicketCreate = async () => {
   const { jiraUrl, title, ticketType, actions } = await promptTicketCreate();

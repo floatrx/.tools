@@ -1,5 +1,4 @@
 // Commands
-import type { TicketType } from '@/config/const.ts';
 
 export type Tools = 'git' | 'ticket';
 export type GitCommands = 'checkout' | 'commit';
@@ -7,6 +6,13 @@ export type TicketCommands = 'create' | 'cleanup';
 export type Commands = GitCommands | TicketCommands;
 
 export type JiraIssueNumber = string;
+
+export type TicketType = {
+  name: string;
+  icon: string;
+  emoji: string;
+  description: string;
+};
 
 export type Ticket = {
   // jira issue number (parsed from jiraUrl)

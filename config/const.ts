@@ -1,7 +1,13 @@
-import type { Tools } from 'types/types';
+import type { TicketType, Tools } from 'types/types';
 
 import { findRootDir, getRootSrcPath, getToolDir } from '@/lib/paths';
 import process from 'node:process';
+import OpenAI from 'openai';
+
+// OpenAI
+export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+export const OPENAI_PROJECT_ID = process.env.OPENAI_PROJECT_ID;
+export const CHAT_MODEL: OpenAI.Chat.ChatModel = 'gpt-4';
 
 // Paths to command executables
 export const CMD_PATH: Record<Tools, `${string}/${string}`> = {
@@ -25,12 +31,6 @@ export const resolvedPath = {
   },
 };
 
-export type TicketType = {
-  name: string;
-  icon: string;
-  emoji: string;
-  description: string;
-};
 export const TASK_TYPES: TicketType[] = [
   {
     name: 'fix',

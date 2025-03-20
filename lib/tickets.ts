@@ -1,6 +1,6 @@
-import type { InquirerChoice, TicketConfig } from '@/types/types.ts';
+import type { InquirerChoice, TicketConfig } from '@/types/types';
 
-import { resolvedPath } from '@/config/const.ts';
+import { resolvedPath } from '@/config/const';
 import fs from 'fs-extra';
 
 /**

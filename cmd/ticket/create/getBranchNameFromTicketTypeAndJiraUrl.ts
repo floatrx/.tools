@@ -1,6 +1,6 @@
-import type { TicketType } from '@/config/const.ts';
+import type { TicketType } from '@/types/types';
 
-import { parseJiraIssueNumber } from '@/lib/strings.ts';
+import { parseJiraIssueNumber } from '@/lib/strings';
 
 export const getBranchNameFromTicketTypeAndJiraUrl = (ticketType: TicketType, jiraUrl: string) => {
   const jiraIssueNumber = parseJiraIssueNumber(jiraUrl);

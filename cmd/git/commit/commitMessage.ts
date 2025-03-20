@@ -1,8 +1,8 @@
-import type { JiraIssueNumber } from '@/types/types.ts';
+import type { JiraIssueNumber } from '@/types/types';
 
 import { resolvedPath } from '@/config/const';
 import { log } from '@/lib/logger';
-import { readConfig, syncConfig } from '@/lib/tickets.ts';
+import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 import { writeFile } from 'fs/promises';
 
