@@ -1,3 +1,5 @@
+import '@/config/const';
+
 import { getCmdByTool } from '@/lib/paths';
 import { promptCommands } from '@/process';
 import inquirer from 'inquirer';

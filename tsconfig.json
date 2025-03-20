@@ -17,6 +17,7 @@
     "noUncheckedSideEffectImports": true,
     "esModuleInterop": true,
     "useUnknownInCatchVariables": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["*"]

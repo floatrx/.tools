@@ -1,5 +1,5 @@
-import { resolvedPath } from '@/config/const.ts';
-import { $ } from '@/process.ts';
+import { resolvedPath } from '@/config/const';
+import { $ } from '@/process';
 import chalk from 'chalk';
 
 const excludeShared = (output: string) => output.split('\n').filter((file) => file && !file.startsWith('src/shared-'));

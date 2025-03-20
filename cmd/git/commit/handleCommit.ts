@@ -1,12 +1,12 @@
-import { createCommitMessage } from '@/cmd/git/commit/commitMessage.ts';
-import { promptCommit } from '@/cmd/git/commit/promptCommit.ts';
-import { resolvedPath } from '@/config/const.ts';
-import { log } from '@/lib/logger.ts';
-import { $run } from '@/process.ts';
+import { createCommitMessage } from '@/cmd/git/commit/commitMessage';
+import { promptGitCommit } from '@/cmd/git/commit/index';
+import { resolvedPath } from '@/config/const';
+import { log } from '@/lib/logger';
+import { $run } from '@/process';
 import chalk from 'chalk';
 
 export const handleCommit = async () => {
-  const { jiraIssue, commitMessage, selectedFiles, commitDescription } = await promptCommit();
+  const { jiraIssue, commitMessage, selectedFiles, commitDescription } = await promptGitCommit();
 
   if (selectedFiles.length > 0) {
     const gitAddCommand = `git add -A ${selectedFiles.join(' ')}`;

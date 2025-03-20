@@ -62,6 +62,7 @@ async function promptCommands(promptFn: () => Promise<{ cmd: string }>) {
   try {
     const answers = await promptFn();
     const { cmd } = answers;
+    console.clear();
     await $run(cmd);
   } catch (e) {
     console.error(e);

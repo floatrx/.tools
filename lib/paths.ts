@@ -1,8 +1,9 @@
-import type { Commands, GitCommands, TaskCommands, Tools } from '@/types';
+import type { Commands, GitCommands, TicketCommands, Tools } from 'types/types';
 
 import { CMD_PATH } from '@/config/const';
 import fs from 'fs-extra';
 import path from 'node:path';
+import process from 'node:process';
 
 /**
  * Find root directory with next.config.js
@@ -31,16 +32,18 @@ export function findRootDir(): string {
 
 /**
  * Get absolute path
- * @param str - path parts
+ * @param p - path parts
  */
-export function getRootSrcPath(...str: string[]) {
-  return path.join(findRootDir(), 'src', ...str);
+export function getRootSrcPath(...p: string[]) {
+  return path.join(findRootDir(), 'src', ...p);
 }
+
+export const getToolDir = (tool: Tools, ...p: string[]) => path.resolve(process.cwd(), CMD_PATH[tool], ...p);
 
 // Git commands
 export function getCmdByTool(tool: 'git', cmd: GitCommands): string;
 // Task commands
-export function getCmdByTool(tool: 'task', cmd: TaskCommands): string;
+export function getCmdByTool(tool: 'ticket', cmd: TicketCommands): string;
 /**
  * Get command index by tool
  * @param tool

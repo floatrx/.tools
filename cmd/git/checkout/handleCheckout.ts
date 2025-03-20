@@ -1,4 +1,4 @@
-import { promptCheckoutActions } from '@/cmd/git/checkout/index';
+import { promptGitCheckoutActions } from '@/cmd/git/checkout/index';
 import { resolvedPath } from '@/config/const';
 import { log } from '@/lib/logger';
 import { $run, runBulk } from '@/process';
@@ -11,12 +11,22 @@ const $eachSubmoduleRun = async (commands: string[]) => {
 };
 
 export const handleCheckout = async () => {
-  const { actions } = await promptCheckoutActions();
+  const { actions } = await promptGitCheckoutActions();
   const { root } = resolvedPath;
 
   await $run('git status', root, true);
 
   const doStash = actions.includes('doStash');
+
+  if (actions.includes('doFetch')) {
+    await log.process(
+      {
+        task: 'Fetching all remotes [10-15s]',
+        success: 'Remotes fetched',
+      },
+      () => $run('git fetch --all', root, true)
+    );
+  }
 
   if (actions.includes('doResetModulesToDev')) {
     await $eachSubmoduleRun(['git reset --hard']);
@@ -29,7 +39,6 @@ export const handleCheckout = async () => {
       doStash && 'git stash',
       'git checkout development',
       'git pull',
-      doStash && 'git stash apply',
     ]);
 
     log.info('Submodules checked out to development.');
@@ -42,7 +51,6 @@ export const handleCheckout = async () => {
         doStash && 'git stash',
         'git checkout development',
         'git pull',
-        doStash && 'git stash apply',
       ],
       root,
       true
@@ -58,16 +66,6 @@ export const handleCheckout = async () => {
         success: 'Types rebuilt',
       },
       () => $run('node utils/build-shared-types.mjs', root, true)
-    );
-  }
-
-  if (actions.includes('doFetch')) {
-    await log.process(
-      {
-        task: 'Fetching all remotes [10-15s]',
-        success: 'Remotes fetched',
-      },
-      () => $run('git fetch --all', root, true)
     );
   }
 
