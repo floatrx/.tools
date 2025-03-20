@@ -24,3 +24,54 @@ export const resolvedPath = {
     web: getRootSrcPath('shared-web'),
   },
 };
+
+export type TicketType = {
+  name: string;
+  icon: string;
+  emoji: string;
+  description: string;
+};
+export const TASK_TYPES: TicketType[] = [
+  {
+    name: 'fix',
+    icon: ':bug:',
+    emoji: '🐛',
+    description: 'fix a bug',
+  },
+  {
+    name: 'feature',
+    icon: ':sparkles:',
+    emoji: '✨',
+    description: 'new feature',
+  },
+  {
+    name: 'hotfix',
+    icon: ':ambulance:',
+    emoji: '🚑',
+    description: 'urgent fix',
+  },
+  {
+    name: 'improvement',
+    icon: ':chart_with_upwards_trend:',
+    emoji: '📈',
+    description: 'enhance feature',
+  },
+  {
+    name: 'perf',
+    icon: ':zap:',
+    emoji: '⚡️',
+    description: 'improve performance',
+  },
+  {
+    name: 'refactor',
+    icon: ':recycle:',
+    emoji: '♻️',
+    description: 'refactor code',
+  },
+  {
+    name: 'style',
+    icon: ':art:',
+    emoji: '🎨',
+    description: 'improve code style',
+  },
+];

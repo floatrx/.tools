@@ -7,6 +7,6 @@ export const upperFirst = (str: string): string => str.charAt(0).toUpperCase() +
 /**
  * Parse Jira issue from URL
  * @param url
- * @returns number | null
+ * @returns jira issue number
  */
-export const parseJiraIssue = (url: string): string | undefined => url.match(/\/browse\/([A-Z]+-\d+)/)?.[1];
+export const parseJiraIssueNumber = (url: string): string => url.match(/\/browse\/([A-Z]+-\d+)/)![1];

@@ -16,8 +16,6 @@ export const handleCheckout = async () => {
 
   await $run('git status', root, true);
 
-  const doStash = actions.includes('doStash');
-
   if (actions.includes('doFetch')) {
     await log.process(
       {
@@ -32,14 +30,12 @@ export const handleCheckout = async () => {
     await runBulk(
       [
         // Root repo
-        doStash && 'git stash',
         'git checkout development',
-        'git reset --hard origin/development',
+        'git reset --hard origin/development', // force pull
       ],
       root,
       true
     );
-    doStash && (await $eachSubmoduleRun(['git stash apply']));
     log.info('Main repo checked out to development.');
   }
 
@@ -56,7 +52,6 @@ export const handleCheckout = async () => {
   if (actions.includes('doCheckoutModulesToDev')) {
     await $eachSubmoduleRun([
       //
-      doStash && 'git stash',
       'git checkout development',
       'git pull',
     ]);

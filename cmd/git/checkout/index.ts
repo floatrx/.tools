@@ -43,11 +43,6 @@ export const promptGitCheckoutActions = async () => {
           value: 'doInstall',
           description: 'npm install may take a while',
         },
-        {
-          name: `Use ${chalk.yellow('git stash')} `,
-          value: 'doStash',
-          description: `if your working directory is not clean ${chalk.red('(requires manual apply)')}`,
-        },
       ],
     },
   ]);

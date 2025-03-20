@@ -1,55 +1,12 @@
 import '@/config/const';
 
+import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl.ts';
 import { handleTicketCreate } from '@/cmd/ticket/create/handleTicketCreate';
+import { TASK_TYPES, type TicketType } from '@/config/const.ts';
 import inquirer from 'inquirer';
 
-const taskTypes = [
-  {
-    type: 'fix',
-    icon: ':bug:',
-    emoji: '🐛',
-    description: 'fix a bug',
-  },
-  {
-    type: 'feature',
-    icon: ':sparkles:',
-    emoji: '✨',
-    description: 'new feature',
-  },
-  {
-    type: 'hotfix',
-    icon: ':ambulance:',
-    emoji: '🚑',
-    description: 'urgent fix',
-  },
-  {
-    type: 'improvement',
-    icon: ':chart_with_upwards_trend:',
-    emoji: '📈',
-    description: 'enhance feature',
-  },
-  {
-    type: 'perf',
-    icon: ':zap:',
-    emoji: '⚡️',
-    description: 'improve performance',
-  },
-  {
-    type: 'refactor',
-    icon: ':recycle:',
-    emoji: '♻️',
-    description: 'refactor code',
-  },
-  {
-    type: 'style',
-    icon: ':art:',
-    emoji: '🎨',
-    description: 'improve code style',
-  },
-];
-
 export const promptTicketCreate = async () => {
-  return inquirer.prompt([
+  const { ticketType, title, jiraUrl } = await inquirer.prompt([
     {
       name: 'jiraUrl',
       type: 'input',
@@ -62,15 +19,25 @@ export const promptTicketCreate = async () => {
       },
     },
     {
-      name: 'type',
+      name: 'title',
+      type: 'input',
+      message: 'Provide task title (copy from jira):',
+      required: true,
+      default: 'Task title', // <- during debugging...
+    },
+    {
+      name: 'ticketType',
       type: 'list',
       message: 'Choose ticket type:',
-      choices: taskTypes.map(({ emoji, type, description, icon }) => ({
-        name: `${emoji} ${type}`,
-        value: `${icon} ${type}`,
-        description,
+      choices: TASK_TYPES.map((ticketType) => ({
+        name: `${ticketType.emoji} ${ticketType.name}`,
+        value: ticketType,
+        description: ticketType.description,
       })),
     },
+  ]);
+
+  const { actions } = await inquirer.prompt([
     {
       name: 'actions',
       type: 'checkbox',
@@ -79,12 +46,14 @@ export const promptTicketCreate = async () => {
         {
           name: 'Create new branch',
           value: 'doCreateBranch',
-          description: 'Create a new ticket',
+          description: `${(ticketType as TicketType).emoji} Create a new branch ${getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl)}`,
           checked: true,
         },
       ],
     },
   ]);
+
+  return { jiraUrl, title, ticketType, actions };
 };
 
 handleTicketCreate();
