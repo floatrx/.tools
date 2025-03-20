@@ -32,6 +32,14 @@ See project's `package.json` for the list of available tools.
 pnpm go
 ```
 
+or add to your aliases (`.bashrc`, `.zshrc`, etc.):
+
+```bash
+alias po="p --prefix /Users/${path-to-your-project}/.tools go"
+```
+
+Provide /Users path explicitly instead of using `~` to avoid issues with `pnpm`.
+
 ### Features
 
 #### 🗄️ Git
@@ -51,3 +59,4 @@ pnpm go
 - [x] 🗄️ Git (commit, checkout, fetch, update)
 - [x] 📁 Tickets (create/remove)
 - [ ] 🧠 AI (for commits & grammar fixes)
+- [ ] 🗑️ Cleanup with `git checkout development && git branch | grep -v "development" | xargs git branch -D`

@@ -28,8 +28,28 @@ export const handleCheckout = async () => {
     );
   }
 
+  if (actions.includes('doCheckoutRootToDev')) {
+    await runBulk(
+      [
+        // Root repo
+        doStash && 'git stash',
+        'git checkout development',
+        'git reset --hard origin/development',
+      ],
+      root,
+      true
+    );
+    doStash && (await $eachSubmoduleRun(['git stash apply']));
+    log.info('Main repo checked out to development.');
+  }
+
+  // Update submodules after root repo
   if (actions.includes('doResetModulesToDev')) {
-    await $eachSubmoduleRun(['git reset --hard']);
+    await $eachSubmoduleRun([
+      //
+      'git reset --hard origin/development',
+      'git checkout development',
+    ]);
     log.info('Submodules reset to development.');
   }
 
@@ -42,21 +62,6 @@ export const handleCheckout = async () => {
     ]);
 
     log.info('Submodules checked out to development.');
-  }
-
-  if (actions.includes('doCheckoutRootToDev')) {
-    await runBulk(
-      [
-        //
-        doStash && 'git stash',
-        'git checkout development',
-        'git pull',
-      ],
-      root,
-      true
-    );
-    await $eachSubmoduleRun(['git stash apply']);
-    log.info('Main repo checked out to development.');
   }
 
   if (actions.includes('doBuildTypes')) {

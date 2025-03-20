@@ -13,11 +13,13 @@ export const handleTicketCreate = async () => {
   console.log('Type:', type);
   console.log('Actions:', actions);
 
-  const jiraIssueNumber = parseJiraIssue(jiraUrl);
+  const jiraIssueNumber = parseJiraIssue(jiraUrl)?.trim();
 
-  if (actions.includes('doCreateBranch')) {
-    console.log(`git checkout -b "${type}/${jiraIssueNumber}"`);
-    await $run(`git checkout -b "${type.split(' ').pop()}/${jiraIssueNumber}"`, resolvedPath.root);
+  // Awful code -> todo: split type to two different variables...
+  const issueType = String(type.split(' ').pop()).replace(/\s/, '-').trim();
+
+  if (actions.includes('doCreateBranch') && jiraIssueNumber) {
+    await $run(`git checkout -b ${issueType}/${jiraIssueNumber}`, resolvedPath.root);
   }
 
   const config = await readConfig();

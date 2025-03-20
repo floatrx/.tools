@@ -10,16 +10,26 @@ import fs from 'fs-extra';
 export const syncConfig = async (newConfig: TicketConfig): Promise<void> => {
   const configPath = resolvedPath.ticket.config;
 
-  // Read the existing config file
+  // Read
   const existingConfig = await fs.readJson(configPath);
 
-  // Merge the existing config with the new config
+  // Merge
   const updatedConfig = { ...existingConfig, ...newConfig };
 
-  // Write the updated config back to the config file
+  // Write
   await fs.writeJson(configPath, updatedConfig, { spaces: 2 });
 };
 
 export const readConfig = async (): Promise<TicketConfig> => {
-  return await fs.readJson(resolvedPath.ticket.config);
+  const configPath = resolvedPath.ticket.config;
+  try {
+    await fs.ensureFile(configPath);
+    return await fs.readJson(configPath);
+  } catch (e) {
+    if (e instanceof SyntaxError) {
+      await fs.writeJson(configPath, {});
+      return {};
+    }
+    throw e;
+  }
 };
