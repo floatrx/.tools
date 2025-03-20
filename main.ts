@@ -23,6 +23,11 @@ const selectMainCommand = async () =>
           description: 'Proceed with ticket',
         },
         {
+          name: '🤖 AI (test)',
+          value: `tsx ${CMD_PATH.ai}/index.ts`,
+          description: 'ChatGPT',
+        },
+        {
           name: '🏁 Exit',
           value: 'clear',
           description: 'See ya! 👋',

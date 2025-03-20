@@ -1,6 +1,6 @@
 // Commands
 
-export type Tools = 'git' | 'ticket';
+export type Tools = 'git' | 'ticket' | 'ai';
 export type GitCommands = 'checkout' | 'commit';
 export type TicketCommands = 'create' | 'cleanup';
 export type Commands = GitCommands | TicketCommands;

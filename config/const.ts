@@ -1,18 +1,21 @@
 import type { TicketType, Tools } from 'types/types';
 
+import 'dotenv/config';
+
 import { findRootDir, getRootSrcPath, getToolDir } from '@/lib/paths';
 import process from 'node:process';
 import OpenAI from 'openai';
 
 // OpenAI
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-export const OPENAI_PROJECT_ID = process.env.OPENAI_PROJECT_ID;
-export const CHAT_MODEL: OpenAI.Chat.ChatModel = 'gpt-4';
+// export const OPENAI_PROJECT_ID = process.env.OPENAI_PROJECT_ID;
+export const OPENAI_CHAT_MODEL: OpenAI.Chat.ChatModel = 'gpt-4';
 
 // Paths to command executables
 export const CMD_PATH: Record<Tools, `${string}/${string}`> = {
   git: 'cmd/git',
   ticket: 'cmd/ticket',
+  ai: 'cmd/ai',
 };
 
 // Resolved paths for tools

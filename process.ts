@@ -63,7 +63,7 @@ async function promptCommands(promptFn: () => Promise<{ cmd: string }>) {
     const answers = await promptFn();
     const { cmd } = answers;
     console.clear();
-    await $run(cmd);
+    await $run(cmd + ' --no-deprecation');
   } catch (e) {
     console.error(e);
   }

@@ -2,6 +2,7 @@ import type { JiraIssueNumber } from '@/types/types';
 
 import { resolvedPath } from '@/config/const';
 import { log } from '@/lib/logger';
+import { fixGrammar } from '@/lib/openai/grammar';
 import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 import { writeFile } from 'fs/promises';
@@ -12,7 +13,8 @@ export const createCommitMessage = async (
   commitDescription: string,
   appRoot: string
 ) => {
-  const message = `${jiraIssue}: ${commitMessage}\n${commitDescription}`.trim();
+  const fixedCommitMessage = await fixGrammar(commitMessage + '\n' + commitDescription);
+  const message = `${jiraIssue}: ${fixedCommitMessage}`.trim();
   const msgFile = resolvedPath.commitMessageFile;
 
   log.info(`Generating commit msg tpl at ./git`);

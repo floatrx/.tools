@@ -8,7 +8,7 @@ importers:
     .:
         dependencies:
             openai:
-                specifier: ^4.89.0
+                specifier: ^4.0.0
                 version: 4.89.0
         devDependencies:
             "@eslint/js":
@@ -26,6 +26,9 @@ importers:
             chalk:
                 specifier: ^5.4.1
                 version: 5.4.1
+            dotenv:
+                specifier: ^16.4.7
+                version: 16.4.7
             eslint:
                 specifier: ^9.22.0
                 version: 9.22.0
@@ -1013,6 +1016,13 @@ packages:
                 integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==,
             }
         engines: { node: ">=0.4.0" }
+
+    dotenv@16.4.7:
+        resolution:
+            {
+                integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==,
+            }
+        engines: { node: ">=12" }
 
     dunder-proto@1.0.1:
         resolution:
@@ -2887,6 +2897,8 @@ snapshots:
     deep-is@0.1.4: {}
 
     delayed-stream@1.0.0: {}
+
+    dotenv@16.4.7: {}
 
     dunder-proto@1.0.1:
         dependencies:
