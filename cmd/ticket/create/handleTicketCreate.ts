@@ -2,10 +2,10 @@ import type { Ticket } from '@/types/types.ts';
 
 import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl.ts';
 import { promptTicketCreate } from '@/cmd/ticket/create/index.ts';
-import { readConfig, syncConfig } from '@/cmd/ticket/syncConfig.ts';
 import { resolvedPath } from '@/config/const.ts';
 import { log } from '@/lib/logger.ts';
 import { parseJiraIssueNumber } from '@/lib/strings.ts';
+import { readConfig, syncConfig } from '@/lib/tickets.ts';
 import { $run } from '@/process.ts';
 
 export const handleTicketCreate = async () => {
@@ -13,6 +13,7 @@ export const handleTicketCreate = async () => {
   const jiraIssueNumber = parseJiraIssueNumber(jiraUrl);
   const branchName = getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl);
 
+  // Debug...
   console.log({ jiraUrl, title, jiraIssueNumber });
   console.log(ticketType);
 

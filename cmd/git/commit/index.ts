@@ -1,6 +1,6 @@
 import { handleCommit } from '@/cmd/git/commit/handleCommit';
-import { parseIssueAndMessage } from '@/cmd/git/commit/parseIssueAndMessage';
 import { findDirtyFiles } from '@/lib/gitDirty';
+import { getTicketIssues } from '@/lib/tickets.ts';
 import inquirer from 'inquirer';
 
 export const promptGitCommit = async () => {
@@ -9,29 +9,21 @@ export const promptGitCommit = async () => {
     return { jiraIssue: '', commitMessage: '', commitDescription: '', selectedFiles: [] };
   }
 
-  const { jiraIssue, commitMessage } = parseIssueAndMessage();
+  const { ticketList, currentTicket } = await getTicketIssues();
 
   return inquirer.prompt([
     {
-      type: 'input',
+      type: 'list',
       name: 'jiraIssue',
-      message: 'Enter the JIRA issue number: CRM -',
-      required: true,
-      default: jiraIssue,
-      validate: (input) => {
-        const isValid = /^\d{4}$/.test(input);
-        return isValid || 'Please enter a valid JIRA issue number e.g. CRM-1234';
-      },
+      message: 'Select the JIRA issue number:',
+      choices: ticketList,
+      default: currentTicket?.id,
     },
     {
       type: 'input',
       name: 'commitMessage',
       message: 'Commit message:',
-      default: commitMessage,
-      validate: (input) => {
-        const isValid = /^[a-z]/.test(input);
-        return isValid || 'Commit message should start with a lowercase letter.';
-      },
+      default: currentTicket?.lastCommitMsg || 'Commit message',
       required: true,
     },
     {

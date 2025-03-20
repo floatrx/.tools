@@ -1,6 +1,6 @@
-import type { TicketConfig } from '@/types/types.ts';
+import type { InquirerChoice, TicketConfig } from '@/types/types.ts';
 
-import { resolvedPath } from 'config/const';
+import { resolvedPath } from '@/config/const.ts';
 import fs from 'fs-extra';
 
 /**
@@ -9,14 +9,8 @@ import fs from 'fs-extra';
  */
 export const syncConfig = async (newConfig: TicketConfig): Promise<void> => {
   const configPath = resolvedPath.ticket.config;
-
-  // Read
   const existingConfig = await fs.readJson(configPath);
-
-  // Merge
   const updatedConfig = { ...existingConfig, ...newConfig };
-
-  // Write
   await fs.writeJson(configPath, updatedConfig, { spaces: 2 });
 };
 
@@ -27,9 +21,24 @@ export const readConfig = async (): Promise<TicketConfig> => {
     return await fs.readJson(configPath);
   } catch (e) {
     if (e instanceof SyntaxError) {
-      await fs.writeJson(configPath, {});
+      await fs.writeJson(configPath, { tickets: {}, current: '' }, { spaces: 2 });
       return {};
     }
     throw e;
   }
+};
+
+/**
+ * Get the list of tickets and the current ticket (for prompt)
+ */
+export const getTicketIssues = async () => {
+  const { tickets, current: id = '0000' } = await readConfig();
+  const currentTicket = tickets?.[id];
+  const ticketList: InquirerChoice<string>[] = tickets
+    ? Object.keys(tickets).map((id) => {
+        const { ticketType } = tickets[id];
+        return { name: `${ticketType.emoji} ${id} - ${tickets[id].title}`, value: id, description: '' };
+      })
+    : [];
+  return { ticketList, currentTicket };
 };

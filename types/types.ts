@@ -3,7 +3,7 @@ import type { TicketType } from '@/config/const.ts';
 
 export type Tools = 'git' | 'ticket';
 export type GitCommands = 'checkout' | 'commit';
-export type TicketCommands = 'create';
+export type TicketCommands = 'create' | 'cleanup';
 export type Commands = GitCommands | TicketCommands;
 
 export type JiraIssueNumber = string;
@@ -22,3 +22,9 @@ export type TicketConfig = Partial<{
   tickets: Record<JiraIssueNumber, Ticket>;
   current: JiraIssueNumber;
 }>;
+
+export type InquirerChoice<Value> = {
+  value: Value;
+  name?: string;
+  description?: string;
+};

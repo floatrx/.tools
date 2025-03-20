@@ -13,8 +13,13 @@ const selectCommand = async () =>
       default: 'commit',
       choices: [
         {
-          name: '🐞 Start work on ticket',
+          name: '🐞 Add',
           value: getCmdByTool('ticket', 'create'),
+          description: 'It helps you with commit messages and commit descriptions.',
+        },
+        {
+          name: '🧹 Cleanup',
+          value: getCmdByTool('ticket', 'cleanup'),
           description: 'It helps you with commit messages and commit descriptions.',
         },
         {
