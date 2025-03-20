@@ -48,6 +48,6 @@ pnpm go
 
 ### Ideas
 
-- [ ] 🗄️ Git (commit, checkout, fetch, update)
-- [ ] 📁 Tasks (create/remove)
+- [x] 🗄️ Git (commit, checkout, fetch, update)
+- [x] 📁 Tickets (create/remove)
 - [ ] 🧠 AI (for commits & grammar fixes)
