@@ -36,8 +36,12 @@ export const getTicketIssues = async () => {
   const currentTicket = tickets?.[id];
   const ticketList: InquirerChoice<string>[] = tickets
     ? Object.keys(tickets).map((id) => {
-        const { ticketType } = tickets[id];
-        return { name: `${ticketType.emoji} ${id} - ${tickets[id].title}`, value: id, description: '' };
+        const { ticketType, jiraUrl, title, lastCommitMsg } = tickets[id];
+        return {
+          name: `${ticketType.emoji} ${id} - ${title}\n🌍 ${jiraUrl}\n✉️ ${lastCommitMsg}\n`,
+          value: id,
+          description: '',
+        };
       })
     : [];
   return { ticketList, currentTicket };
