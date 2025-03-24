@@ -13,10 +13,6 @@ export const handleTicketCreate = async () => {
   const jiraIssueNumber = parseJiraIssueNumber(jiraUrl);
   const branchName = getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl);
 
-  // Debug...
-  console.log({ jiraUrl, title, jiraIssueNumber });
-  console.log(ticketType);
-
   if (actions.includes('doCreateBranch') && jiraIssueNumber) {
     await $run(`git checkout -b ${branchName}`, resolvedPath.root);
   }

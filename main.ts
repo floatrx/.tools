@@ -1,12 +1,14 @@
 import { CMD_PATH } from '@/config/const';
+import { logCurrentTicketInfo } from '@/lib/tickets';
 import inquirer from 'inquirer';
 
 import { promptCommands } from './process';
 
 console.clear();
 
-const selectMainCommand = async () =>
-  inquirer.prompt([
+const selectMainCommand = async () => {
+  await logCurrentTicketInfo();
+  return inquirer.prompt([
     {
       type: 'list',
       name: 'cmd',
@@ -35,5 +37,6 @@ const selectMainCommand = async () =>
       ],
     },
   ]);
+};
 
 promptCommands(selectMainCommand);

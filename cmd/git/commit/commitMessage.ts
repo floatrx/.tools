@@ -14,7 +14,9 @@ export const createCommitMessage = async (
   appRoot: string
 ) => {
   const fixedCommitMessage = await fixGrammar(commitMessage + '\n' + commitDescription);
-  const message = `${jiraIssue}: ${fixedCommitMessage}`.trim();
+  const message = fixedCommitMessage.match(/^CRM-/g)
+    ? fixedCommitMessage
+    : `${jiraIssue}: ${fixedCommitMessage}`.trim();
   const msgFile = resolvedPath.commitMessageFile;
 
   log.info(`Generating commit msg tpl at ./git`);

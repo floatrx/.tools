@@ -14,7 +14,7 @@ export const promptTicketCreate = async () => {
       type: 'input',
       message: 'Enter JIRA URL:',
       required: true,
-      default: 'https://*.atlassian.net/browse/CRM-0000', // <- during debugging...
+      default: 'https://company.atlassian.net/browse/CRM-0000', // <- during debugging...
       validate: (input) => {
         const isValid = /^https:\/\/.*?\.atlassian\.net\/browse\/CRM-\d+$/.test(input);
         return isValid || 'Please enter a valid JIRA URL (e.g., https://*.atlassian.net/browse/CRM-1234)';

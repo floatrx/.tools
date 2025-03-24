@@ -35,7 +35,7 @@ export const promptGitCheckoutActions = async () => {
         {
           name: 'Rebuild shared types',
           value: 'doBuildTypes',
-          description: 'generate src/shared/types/index',
+          description: 'generate src/shared/types/index.ts',
           checked: true,
         },
         {

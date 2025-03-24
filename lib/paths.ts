@@ -40,6 +40,8 @@ export function getRootSrcPath(...p: string[]) {
 
 export const getToolDir = (tool: Tools, ...p: string[]) => path.resolve(process.cwd(), CMD_PATH[tool], ...p);
 
+export const getCurrentPath = (...p: string[]) => path.resolve(process.cwd(), ...p);
+
 // Git commands
 export function getCmdByTool(tool: 'git', cmd: GitCommands): string;
 // Task commands

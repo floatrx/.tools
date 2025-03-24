@@ -2,7 +2,7 @@ import type { TicketType, Tools } from 'types/types';
 
 import 'dotenv/config';
 
-import { findRootDir, getRootSrcPath, getToolDir } from '@/lib/paths';
+import { findRootDir, getCurrentPath, getRootSrcPath } from '@/lib/paths';
 import process from 'node:process';
 import OpenAI from 'openai';
 
@@ -24,7 +24,7 @@ export const resolvedPath = {
   current: process.cwd(),
   commitMessageFile: getRootSrcPath('..', '.git', 'COMMIT_MESSAGE.txt'),
   ticket: {
-    config: getToolDir('ticket', 'config.json'),
+    config: getCurrentPath('config.json'),
   },
   modules: {
     components: getRootSrcPath('shared-components'),

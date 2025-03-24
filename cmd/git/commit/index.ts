@@ -31,7 +31,6 @@ export const promptGitCommit = async () => {
       name: 'commitDescription',
       message: 'What has been done? Optional description:',
       default: '',
-      required: true,
     },
     {
       type: 'checkbox',

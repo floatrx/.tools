@@ -1,6 +1,7 @@
 import type { InquirerChoice, TicketConfig } from '@/types/types';
 
 import { resolvedPath } from '@/config/const';
+import chalk from 'chalk';
 import fs from 'fs-extra';
 
 /**
@@ -37,12 +38,30 @@ export const getTicketIssues = async () => {
   const ticketList: InquirerChoice<string>[] = tickets
     ? Object.keys(tickets).map((id) => {
         const { ticketType, jiraUrl, title, lastCommitMsg } = tickets[id];
+        const lastCommitMsgDisplay = lastCommitMsg ? `\n       • ${lastCommitMsg.replaceAll(/\n/g, '• ')}` : '\n';
+
         return {
-          name: `${ticketType.emoji} ${id} - ${title}\n🌍 ${jiraUrl}\n✉️ ${lastCommitMsg}\n`,
+          name: `${ticketType.emoji} ${id} - ${title}\n       ${jiraUrl}${chalk.gray(lastCommitMsgDisplay)}\n`,
           value: id,
           description: '',
         };
       })
     : [];
   return { ticketList, currentTicket };
+};
+
+export const logCurrentTicketInfo = async (): Promise<void> => {
+  const { currentTicket, ticketList } = await getTicketIssues();
+
+  if (!currentTicket || !ticketList.length) return;
+
+  const { id, title, jiraUrl, ticketType } = currentTicket;
+
+  console.log(
+    chalk.gray(`📂 Current ticket: ${chalk.red(id)}\n`),
+    ticketType.emoji,
+    chalk.green(title) + '\n',
+    chalk.blueBright(`🔗 ` + jiraUrl),
+    '\n'
+  );
 };

@@ -13,12 +13,12 @@ const selectCommand = async () =>
       default: 'commit',
       choices: [
         {
-          name: '⚙️ I start work on new feature. Need actualise git from development',
+          name: '⚙️ Actualise git',
           value: getCmdByTool('git', 'checkout'),
           description: 'Checkout to development, fetch all, install dependencies and build types',
         },
         {
-          name: '✅ I want make a commit',
+          name: '✅ Make a commit',
           value: getCmdByTool('git', 'commit'),
           description: 'Stage files and create a commit',
         },
