@@ -35,13 +35,12 @@ export const readConfig = async (): Promise<TicketConfig> => {
 export const getTicketIssues = async () => {
   const { tickets, current: id = '0000' } = await readConfig();
   const currentTicket = tickets?.[id];
-  const ticketList: InquirerChoice<string>[] = tickets
+  const ticketList: (InquirerChoice<string> & { url: string })[] = tickets
     ? Object.keys(tickets).map((id) => {
-        const { ticketType, jiraUrl, title, lastCommitMsg } = tickets[id];
-        const lastCommitMsgDisplay = lastCommitMsg ? `\n       • ${lastCommitMsg.replaceAll(/\n/g, '• ')}` : '\n';
-
+        const { ticketType, jiraUrl, title } = tickets[id];
         return {
-          name: `${ticketType.emoji} ${id} - ${title}\n       ${jiraUrl}${chalk.gray(lastCommitMsgDisplay)}\n`,
+          url: jiraUrl,
+          name: `${ticketType.emoji} ${id} - ${title}\n       ${jiraUrl}`,
           value: id,
           description: '',
         };

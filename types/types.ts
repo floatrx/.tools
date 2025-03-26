@@ -2,7 +2,7 @@
 
 export type Tools = 'git' | 'ticket' | 'ai';
 export type GitCommands = 'checkout' | 'commit';
-export type TicketCommands = 'create' | 'cleanup';
+export type TicketCommands = 'create' | 'cleanup' | 'select';
 export type Commands = GitCommands | TicketCommands;
 
 export type JiraIssueNumber = string;
