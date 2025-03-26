@@ -20,15 +20,16 @@ export const handleTicketCreate = async () => {
   const ticket: Ticket = {
     id: jiraIssueNumber,
     jiraUrl,
-    ticketType,
     title,
     lastCommitMsg: '',
+    branchName,
+    ticketType,
   };
 
   const ticketsConfig = await readConfig();
   if (!ticketsConfig.tickets) ticketsConfig.tickets = {};
 
-  // Update ticket list
+  // Update a ticket list
   ticketsConfig.tickets[jiraIssueNumber] = ticket;
 
   // Save current ticket id

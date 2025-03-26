@@ -23,6 +23,11 @@ export const promptTicketSelect = async () => {
         },
       ],
     },
+    {
+      type: 'confirm',
+      name: 'doCheckout',
+      message: 'Would you like to checkout the selected ticket?',
+    },
   ]);
 };
 
