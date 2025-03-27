@@ -60,3 +60,4 @@ Provide /Users path explicitly instead of using `~` to avoid issues with `pnpm`.
 - [x] 📁 Tickets (create/remove)
 - [ ] 🧠 AI (for commits & grammar fixes)
 - [ ] 🗑️ Cleanup with `git checkout development && git branch | grep -v "development" | xargs git branch -D`
+- [ ] Daily reports generator
