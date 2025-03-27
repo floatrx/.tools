@@ -1,5 +1,3 @@
-import type { TicketType } from '@/types/types';
-
 import '@/config/const';
 
 import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBranchNameFromTicketTypeAndJiraUrl';
@@ -46,9 +44,9 @@ export const promptTicketCreate = async () => {
       message: 'Select actions to perform:',
       choices: [
         {
-          name: 'Create new branch',
+          name: `Create new branch ${getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl)}`,
           value: 'doCreateBranch',
-          description: `${(ticketType as TicketType).emoji} Create a new branch ${getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl)}`,
+          description: 'git checkout -b <branch-name>',
           checked: true,
         },
       ],

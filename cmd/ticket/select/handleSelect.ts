@@ -5,6 +5,8 @@ import { $run } from '@/process';
 
 export const handleSelect = async () => {
   const { selectedTicket, doCheckout } = await promptTicketSelect();
+  if (selectedTicket === 'exit') return;
+
   const ticketsConfig = await readConfig();
   ticketsConfig.current = selectedTicket;
 

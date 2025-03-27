@@ -14,18 +14,13 @@ export const promptGitCheckoutActions = async () => {
           name: 'Retrieve updates from all remotes',
           value: 'doFetch',
           description: 'git fetch --all',
-          checked: true,
+          checked: false,
         },
         {
           name: `Submodules: checkout to ${devBranch}`,
           value: 'doCheckoutModulesToDev',
           description: 'all submodules will be checkout to development',
           checked: true,
-        },
-        {
-          name: `Submodules: reset to ${devBranch} ${chalk.red('(dangerous)')}`,
-          value: 'doResetModulesToDev',
-          description: 'all submodules will be reset to development',
         },
         {
           name: `Main repo: to ${devBranch}`,

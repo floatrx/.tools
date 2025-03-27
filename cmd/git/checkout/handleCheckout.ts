@@ -39,17 +39,10 @@ export const handleCheckout = async () => {
     log.info('Main repo checked out to development.');
   }
 
-  // Update submodules after root repo
-  if (actions.includes('doResetModulesToDev')) {
-    await $eachSubmoduleRun([
-      //
-      'git reset --hard origin/development',
-      'git checkout development',
-    ]);
-    log.info('Submodules reset to development.');
-  }
-
   if (actions.includes('doCheckoutModulesToDev')) {
+    // FIX: This file always modified, so we need to check it out first
+    await $run('git checkout ./index.ts', resolvedPath.modules.types, true);
+
     await $eachSubmoduleRun([
       //
       'git checkout development',
