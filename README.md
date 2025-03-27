@@ -31,10 +31,12 @@ pnpm i
 See project's `package.json` for the list of available tools.
 
 ```bash
-pnpm go
+pnpm po
 ```
 
 or add to your aliases (`.bashrc`, `.zshrc`, etc.):
+
+> If you ask me, "Why `'po'`?", I can explain: the keys `"p"` and `"o"` are next to each other on the keyboard, and "po" is short for "project operations."
 
 ```bash
 alias po="p --prefix /Users/${path-to-your-project}/.tools go"
