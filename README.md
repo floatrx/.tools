@@ -1,5 +1,7 @@
 # Tools
 
+![Screenshot](screen.png)
+
 ### Prerequisites
 
 1. Update global `~/.gitignore` to exclude the tools folder from the project.
