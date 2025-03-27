@@ -13,19 +13,19 @@ const selectCommand = async () =>
       default: 'commit',
       choices: [
         {
-          name: '✅ Select',
+          name: '✅ Select and proceed',
           value: getCmdByTool('ticket', 'select'),
-          description: 'It helps you with commit messages and commit descriptions.',
+          description: 'Checkout / Add PR link',
         },
         {
-          name: '🐞 Add',
+          name: '🐞 Add new',
           value: getCmdByTool('ticket', 'create'),
-          description: 'It helps you with commit messages and commit descriptions.',
+          description: 'Add new ticket to config.json',
         },
         {
           name: '🧹 Cleanup',
           value: getCmdByTool('ticket', 'cleanup'),
-          description: 'It helps you with commit messages and commit descriptions.',
+          description: 'Remove outdated tickets from config.json',
         },
         {
           name: '🏁 Exit',

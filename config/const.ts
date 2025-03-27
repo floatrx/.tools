@@ -25,7 +25,7 @@ export const resolvedPath = {
   commitMessageFile: getRootSrcPath('..', '.git', 'COMMIT_MESSAGE.txt'),
   ticket: {
     config: getCurrentPath('config.json'),
-    report: getCurrentPath('_report.txt'),
+    report: getCurrentPath('REPORT.md'),
   },
   modules: {
     components: getRootSrcPath('shared-components'),

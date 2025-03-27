@@ -4,8 +4,8 @@ import { getBranchNameFromTicketTypeAndJiraUrl } from '@/cmd/ticket/create/getBr
 import { promptTicketCreate } from '@/cmd/ticket/create/index';
 import { resolvedPath } from '@/config/const';
 import { log } from '@/lib/logger';
+import { logIntoReport } from '@/lib/logIntoReport';
 import { parseJiraIssueNumber } from '@/lib/strings';
-import { ticketLogger } from '@/lib/ticketLogger';
 import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 
@@ -33,7 +33,7 @@ export const handleTicketCreate = async () => {
 
   // Update a ticket list
   ticketsConfig.tickets[jiraIssueNumber] = ticket;
-  await ticketLogger('create', ticket);
+  await logIntoReport('create', ticket);
 
   // Save current ticket id
   ticketsConfig.current = jiraIssueNumber;

@@ -1,6 +1,6 @@
 import { promptTicketSelect } from '@/cmd/ticket/select/index';
 import { resolvedPath } from '@/config/const';
-import { ticketLogger } from '@/lib/ticketLogger';
+import { logIntoReport } from '@/lib/logIntoReport';
 import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 
@@ -13,7 +13,7 @@ export const handleSelect = async () => {
 
   // Try to get the selected ticket by
   const ticket = ticketsConfig.tickets![selectedTicketId];
-  await ticketLogger('select', ticket);
+  await logIntoReport('select', ticket);
 
   await syncConfig(ticketsConfig);
 
@@ -27,7 +27,9 @@ export const handleSelect = async () => {
   }
 
   if (actions.includes('doAddPrLink')) {
-    ticket.prLinks = [...(ticket.prLinks || []), prLink];
+    // filter duplicate PR links
+    ticket.prLinks = Array.from(new Set([...(ticket.prLinks || []), prLink]));
+    await logIntoReport('pr', ticket);
     await syncConfig(ticketsConfig);
   }
 };

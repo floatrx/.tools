@@ -10,3 +10,11 @@ export const upperFirst = (str: string): string => str.charAt(0).toUpperCase() +
  * @returns jira issue number
  */
 export const parseJiraIssueNumber = (url: string): string => url.match(/\/browse\/([A-Z]+-\d+)/)![1];
+
+/**
+ * Merge args into string using new line as separator
+ * - Filter out empty strings
+ * @param strings
+ * @returns filtered string
+ */
+export const mergeStrings = (...strings: string[]) => strings.filter(Boolean).join('\n');
