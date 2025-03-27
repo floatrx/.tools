@@ -25,6 +25,7 @@ export const resolvedPath = {
   commitMessageFile: getRootSrcPath('..', '.git', 'COMMIT_MESSAGE.txt'),
   ticket: {
     config: getCurrentPath('config.json'),
+    report: getCurrentPath('_report.txt'),
   },
   modules: {
     components: getRootSrcPath('shared-components'),
@@ -38,7 +39,7 @@ export const TASK_TYPES: TicketType[] = [
   {
     name: 'fix',
     icon: ':bug:',
-    emoji: '🐛',
+    emoji: '🐞',
     description: 'fix a bug',
   },
   {
@@ -55,8 +56,8 @@ export const TASK_TYPES: TicketType[] = [
   },
   {
     name: 'improvement',
-    icon: ':chart_with_upwards_trend:',
-    emoji: '📈',
+    icon: ':bulb:',
+    emoji: '🚀',
     description: 'enhance feature',
   },
   {

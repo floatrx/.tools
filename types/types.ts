@@ -23,6 +23,7 @@ export type Ticket = {
   lastCommitMsg: string;
   ticketType: TicketType;
   branchName: string;
+  prLinks: string[];
 };
 
 export type TicketConfig = Partial<{

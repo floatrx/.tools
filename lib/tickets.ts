@@ -40,7 +40,9 @@ export const getTicketIssues = async () => {
         const { ticketType, jiraUrl, title } = tickets[id];
         return {
           url: jiraUrl,
-          name: `${ticketType.emoji} ${id} - ${title}\n       ${jiraUrl}`,
+          id,
+          ticketType,
+          name: `${ticketType.emoji} ${id} - ${title.slice(0, 30)}...\n       ${jiraUrl}`,
           value: id,
           description: '',
         };
@@ -57,7 +59,7 @@ export const logCurrentTicketInfo = async (): Promise<void> => {
   const { id, title, jiraUrl, ticketType } = currentTicket;
 
   console.log(
-    chalk.gray(`📂 Current ticket: ${chalk.red(id)}\n`),
+    chalk.gray(` 📂 Current ticket: ${chalk.red(id)}\n`),
     ticketType.emoji,
     chalk.green(title) + '\n',
     chalk.blueBright(`🔗 ` + jiraUrl),

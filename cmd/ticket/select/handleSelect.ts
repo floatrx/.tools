@@ -1,22 +1,33 @@
 import { promptTicketSelect } from '@/cmd/ticket/select/index';
 import { resolvedPath } from '@/config/const';
+import { ticketLogger } from '@/lib/ticketLogger';
 import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 
 export const handleSelect = async () => {
-  const { selectedTicket, doCheckout } = await promptTicketSelect();
-  if (selectedTicket === 'exit') return;
+  const { selectedTicketId, prLink, actions } = await promptTicketSelect();
+  if (!selectedTicketId) return;
 
   const ticketsConfig = await readConfig();
-  ticketsConfig.current = selectedTicket;
+  ticketsConfig.current = selectedTicketId; // save the current ticket ID
 
-  const ticket = ticketsConfig.tickets![selectedTicket];
+  // Try to get the selected ticket by
+  const ticket = ticketsConfig.tickets![selectedTicketId];
+  await ticketLogger('select', ticket);
+
+  await syncConfig(ticketsConfig);
+
+  // The Ticket wasn't found in the config
+  if (!ticket) return;
 
   // Checkout the selected ticket
-  if (ticket && doCheckout) {
+  if (actions.includes('doCheckout')) {
     console.log(`Checking out the selected ticket: git checkout ${ticket.branchName}`);
     await $run(`git checkout ${ticket.branchName}`, resolvedPath.root);
   }
 
-  await syncConfig(ticketsConfig);
+  if (actions.includes('doAddPrLink')) {
+    ticket.prLinks = [...(ticket.prLinks || []), prLink];
+    await syncConfig(ticketsConfig);
+  }
 };

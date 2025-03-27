@@ -8,26 +8,49 @@ export const promptTicketSelect = async () => {
   return inquirer.prompt([
     {
       type: 'list',
-      name: 'selectedTicket',
+      name: 'selectedTicketId',
       message: 'Select the Ticket:',
       choices: [
-        ...ticketList.map((t) => ({
+        ...ticketList.map((t, idx) => ({
           ...t,
-          name: t.name!.replace(/(CRM-\d+).*(https.*)/gs, '$1 $2'),
+          name: `${idx + 1}.` + t.name,
           checked: t.value !== currentTicket?.id,
+          key: idx,
         })),
         {
           name: '🏁 Exit',
-          value: `exit`,
+          value: '',
           description: 'See ya! 👋',
         },
       ],
     },
     {
-      type: 'confirm',
-      name: 'doCheckout',
-      message: 'Checkout the branch?',
-      when: (answers) => answers.selectedTicket !== 'exit',
+      type: 'checkbox',
+      name: 'actions',
+      message: 'Select actions to perform:',
+      choices: [
+        {
+          name: `Checkout`,
+          value: 'doCheckout',
+          description: 'git checkout development',
+        },
+        {
+          name: `Add PR link`,
+          value: 'doAddPrLink',
+          description: 'copy & paste related PR link',
+        },
+      ],
+      when: ({ selectedTicketId }) => selectedTicketId,
+    },
+    {
+      type: 'input',
+      name: 'prLink',
+      message: 'Enter PR link:',
+      when: ({ actions }) => actions.includes('doAddPrLink'),
+      validate: (input) => {
+        const isValid = /^https:\/\/github\.com\/(.*?)\/pull\/\d+$/.test(input);
+        return isValid || 'Please enter a valid PR link (e.g., https://github.com/company/repo/pull/1234)';
+      },
     },
   ]);
 };

@@ -46,7 +46,7 @@ export const promptTicketCreate = async () => {
         {
           name: `Create new branch ${getBranchNameFromTicketTypeAndJiraUrl(ticketType, jiraUrl)}`,
           value: 'doCreateBranch',
-          description: 'git checkout -b <branch-name>',
+          description: 'git checkout -b',
           checked: true,
         },
       ],

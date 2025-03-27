@@ -5,6 +5,7 @@ import { promptTicketCreate } from '@/cmd/ticket/create/index';
 import { resolvedPath } from '@/config/const';
 import { log } from '@/lib/logger';
 import { parseJiraIssueNumber } from '@/lib/strings';
+import { ticketLogger } from '@/lib/ticketLogger';
 import { readConfig, syncConfig } from '@/lib/tickets';
 import { $run } from '@/process';
 
@@ -24,6 +25,7 @@ export const handleTicketCreate = async () => {
     lastCommitMsg: '',
     branchName,
     ticketType,
+    prLinks: [],
   };
 
   const ticketsConfig = await readConfig();
@@ -31,6 +33,7 @@ export const handleTicketCreate = async () => {
 
   // Update a ticket list
   ticketsConfig.tickets[jiraIssueNumber] = ticket;
+  await ticketLogger('create', ticket);
 
   // Save current ticket id
   ticketsConfig.current = jiraIssueNumber;
