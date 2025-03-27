@@ -6,7 +6,7 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "go": "tsx main.ts",
+    "po": "tsx main.ts",
     "prepare": "husky"
   },
   "devDependencies": {
