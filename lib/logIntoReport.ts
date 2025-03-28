@@ -23,7 +23,6 @@ export type TicketReportVariants = 'create' | 'select' | 'pr';
  */
 export async function logIntoReport(variant?: TicketReportVariants, ticket?: Ticket) {
   if (!ticket) return;
-  console.log({ variant });
 
   const { id, ticketType, jiraUrl, title, prLinks } = ticket;
 

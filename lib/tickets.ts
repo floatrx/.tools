@@ -36,17 +36,19 @@ export const getTicketIssues = async () => {
   const { tickets, current: id = '0000' } = await readConfig();
   const currentTicket = tickets?.[id];
   const ticketList: (InquirerChoice<string> & { url: string })[] = tickets
-    ? Object.keys(tickets).map((id) => {
-        const { ticketType, jiraUrl, title } = tickets[id];
-        return {
-          url: jiraUrl,
-          id,
-          ticketType,
-          name: `${ticketType.emoji} ${id} - ${title.slice(0, 30)}...\n       ${jiraUrl}`,
-          value: id,
-          description: '',
-        };
-      })
+    ? Object.keys(tickets)
+        .toReversed() // newest first
+        .map((id) => {
+          const { ticketType, jiraUrl, title } = tickets[id];
+          return {
+            url: jiraUrl,
+            id,
+            ticketType,
+            name: `${ticketType.emoji} ${id} - ${title.slice(0, 30)}...\n       ${jiraUrl}`,
+            value: id,
+            description: '',
+          };
+        })
     : [];
   return { ticketList, currentTicket };
 };
