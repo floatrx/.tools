@@ -13,9 +13,12 @@ export const handleSelect = async () => {
 
   // Try to get the selected ticket by
   const ticket = ticketsConfig.tickets![selectedTicketId];
-  await logIntoReport('select', ticket);
 
   await syncConfig(ticketsConfig);
+
+  if (actions.includes('doLogToReport')) {
+    await logIntoReport('select', ticket);
+  }
 
   // The Ticket wasn't found in the config
   if (!ticket) return;
@@ -31,5 +34,6 @@ export const handleSelect = async () => {
     ticket.prLinks = Array.from(new Set([...(ticket.prLinks || []), prLink]));
     await logIntoReport('pr', ticket);
     await syncConfig(ticketsConfig);
+    await $run('open REPORT.md', resolvedPath.current);
   }
 };

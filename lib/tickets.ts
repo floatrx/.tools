@@ -44,7 +44,7 @@ export const getTicketIssues = async () => {
             url: jiraUrl,
             id,
             ticketType,
-            name: `${ticketType.emoji} ${id} - ${title.slice(0, 30)}...\n       ${jiraUrl}`,
+            name: `${ticketType.emoji} ${id} - ${title.slice(0, 33)}...\n       ${jiraUrl}`, // 33 same as jiraUrl line size
             value: id,
             description: '',
           };

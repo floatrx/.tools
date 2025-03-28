@@ -56,12 +56,10 @@ export async function logIntoReport(variant?: TicketReportVariants, ticket?: Tic
   if (!hasTodayReport) entireReport += `\n## ${today}\n`; // prepend the current date
 
   // Prepare the report content
-  const heading = `💬 ${title}`;
+  const { emoji } = ticketType;
   const jiraLink = `🔗 ${jiraUrl}`;
   const poolRequests = prLinks?.length ? `🗄️ PR ${prLinks.join(', ')}` : '';
-  const { emoji } = ticketType;
-
-  const formatHeading = (msg: string) => `\n${emoji} ${msg}: ${id} (${ticketType.description})`;
+  const heading = `\n${emoji} Ticket: ${id} (${ticketType.description})\n💬 ${title}`;
   const lastPrInfo = mergeStrings(`🗄️ PR ${prLinks.at(-1)}`);
 
   // Split the report into lines
@@ -74,10 +72,10 @@ export async function logIntoReport(variant?: TicketReportVariants, ticket?: Tic
   // Report types
   switch (variant) {
     case 'create':
-      entireReport += mergeStrings(formatHeading('Start work on'), heading, jiraLink);
+      entireReport += mergeStrings(heading, jiraLink);
       break;
     case 'select':
-      entireReport += mergeStrings(formatHeading('Proceed with'), heading, jiraLink, poolRequests);
+      entireReport += mergeStrings(heading, jiraLink, poolRequests);
       break;
     case 'pr':
       if (taskLineIdx === -1) return;

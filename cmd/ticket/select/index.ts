@@ -35,6 +35,11 @@ export const promptTicketSelect = async () => {
           description: 'git checkout development',
         },
         {
+          name: 'Log to daily report',
+          value: 'doLogToReport',
+          description: 'log ticket into REPORT.md',
+        },
+        {
           name: `Add PR link`,
           value: 'doAddPrLink',
           description: 'copy & paste related PR link',
